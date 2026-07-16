@@ -49,21 +49,21 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ System Architecture │
+│ System Architecture                                         │
 ├─────────────────────────────────────────────────────────────┤
 │ ┌─────────────────┐         ┌─────────────────────────────┐ │
-│ │ Image Capture   │ ───▶    │ Face Processing Pipeline   │ │
+│ │ Image Capture   │  --->   | Face Processing Pipeline    | |
 │ │ (OpenCV)        │         │ - HOG Face Detection        │ │
 │ └─────────────────┘         │ - CNN Encoding Generation   │ │
 │                             │ - Euclidean Distance Match  │ │
 │                             └──────────┬──────────────────┘ │
-│                                        │ │
+│                                        │                    │
 │                             ┌──────────▼──────────────────┐ │
 │                             │ Web Service Layer (Flask)   │ │
 │                             │ - RESTful API Endpoints     │ │
 │                             │ - Jinja2 Templates          │ │
 │                             └──────────┬──────────────────┘ │
-│                                        │ │
+│                                        │                    │
 │                             ┌──────────▼──────────────────┐ │
 │                             │ SQLite3 Database            │ │
 │                             │ - Student Profiles          │ │
