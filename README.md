@@ -8,25 +8,22 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-## 📋 Overview
+📋 Overview
 
 An innovative, Flask-based facial recognition attendance system leveraging cutting-edge deep learning technologies to revolutionize traditional attendance tracking methods. This edge-computing solution achieves **94.2% recognition accuracy** with an impressive **1.4 second average processing time** per individual, representing a significant advancement over conventional approaches.
 
-> **📄 [View Full Dissertation](docs/MCA%20Final.pdf)**
-
 ---
 
-## ✨ Key Features
+✨ Key Features
 
-### 🎯 Core Capabilities
-- **Real-time Face Recognition** - Instant identification using deep learning
-- **Automated Attendance Logging** - Seamless recording with timestamp
-- **Anti-Spoofing Protection** - 100% prevention of proxy attendance
-- **Edge Computing** - Fully functional on Raspberry Pi 4/5
-- **Privacy-First Design** - Local data processing, no cloud dependency
-- **Multi-Angle Support** - Recognizes faces from various orientations
+🎯 Core Capabilities
+- Real-time Face Recognition - Instant identification using deep learning
+- Anti-Spoofing Protection - 100% prevention of proxy attendance
+- Edge Computing - Fully functional on Raspberry Pi 4/5
+- Privacy-First Design - Local data processing, no cloud dependency
+- Multi-Angle Support - Recognizes faces from various orientations
 
-### 📊 Performance Metrics
+📊 Performance Metrics
 | Metric | Value |
 |--------|-------|
 | Recognition Accuracy | 94.2% |
@@ -35,7 +32,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 | Frame Processing | 28 FPS on Raspberry Pi 5 |
 | Database Support | 150+ students |
 
-### 🔒 Security Features
+🔒 Security Features
 - ✅ Micro-texture analysis for liveness detection
 - ✅ Challenge-response blink detection
 - ✅ Fourier frequency pattern analysis
@@ -46,7 +43,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 
 ---
 
-## 🏗️ System Architecture
+🏗️ System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -349,16 +346,6 @@ Please ensure your code follows our coding standards and includes appropriate te
 
 ---
 
-## 📞 Contact & Support
-
-For any queries, issues, or collaboration opportunities:
-
-- **Email:** your-email@example.com
-- **LinkedIn:** [Your LinkedIn Profile]
-- **GitHub:** [Your GitHub Profile]
-
----
-
 ## ⚠️ Important Notes
 
 1. **Security**: Change default admin credentials in production
@@ -392,199 +379,4 @@ For any queries, issues, or collaboration opportunities:
 
 **⭐ Star this repository if you find it useful!**
 
----
-
-*Built with ❤️ using Python, Flask, and Deep Learning*
-
----
-
-**Made with ❤️ for Educational Institutions**
-```
-
----
-
-## Additional Files (Copy and Paste Separate)
-
-### `.env.example`
-```env
-# Flask Configuration
-SECRET_KEY=your-secure-secret-key-here-change-in-production
-SESSION_TYPE=filesystem
-DEBUG=False
-
-# Camera Settings
-CAMERA_INDEX=0
-FRAME_WIDTH=640
-FRAME_HEIGHT=480
-
-# Recognition Settings
-RECOGNITION_TOLERANCE=0.6
-FACE_DETECTION_MODEL=hog
-
-# Database
-DATABASE_PATH=attendance.db
-BACKUP_ENABLED=true
-BACKUP_INTERVAL=86400
-
-# Security
-MAX_FILE_SIZE=2097152
-ALLOWED_EXTENSIONS=jpg,jpeg,png
-
-# Raspberry Pi Specific
-ENABLE_GPU=False
-MAX_RECOGNITIONS_PER_FRAME=8
-```
-
-### `LICENSE`
-```text
-MIT License
-
-Copyright (c) 2025 Kundan Kumar Yadav
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-### `CONTRIBUTING.md`
-```markdown
-# Contributing to Smart Attendance System
-
-We love your input! We want to make contributing to this project as easy and transparent as possible.
-
-## Development Process
-
-1. Fork the repo and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue that pull request!
-
-## Any contributions you make will be under the MIT Software License
-
-When you submit code changes, your submissions are understood to be under the same [MIT License](LICENSE) that covers the project.
-
-## Report bugs using Github's [issue tracker](https://github.com/yourusername/smart-attendance-system/issues)
-
-## Write bug reports with detail, background, and sample code
-
-**Great Bug Reports** tend to have:
-
-- A quick summary and/or background
-- Steps to reproduce
-  - Be specific!
-  - Give sample code if you can.
-- What you expected would happen
-- What actually happens
-- Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
-
-## Use a Consistent Coding Style
-
-* 4 spaces for indentation rather than tabs
-* You can try running `black` for Python code style
-* Use docstrings for functions and classes
-* Follow PEP 8 guidelines
-
-## License
-
-By contributing, you agree that your contributions will be licensed under its MIT License.
-```
-
-### `requirements.txt`
-```txt
-Flask==2.3.3
-Flask-Session==0.5.0
-opencv-python==4.8.1.78
-face-recognition==1.3.0
-numpy==1.24.3
-Pillow==10.0.1
-Werkzeug==2.3.7
-python-dotenv==1.0.0
-```
-
-### `deploy.sh`
-```bash
-#!/bin/bash
-
-# Smart Attendance System Deployment Script
-
-echo "=========================================="
-echo "Smart Attendance System - Deployment Script"
-echo "=========================================="
-
-# Update system
-echo "📦 Updating system packages..."
-sudo apt update && sudo apt upgrade -y
-
-# Install dependencies
-echo "📦 Installing required packages..."
-sudo apt install -y python3-pip python3-venv python3-opencv \
-    libatlas-base-dev libjasper-dev libqtgui4 libqt4-test \
-    libhdf5-dev libcblas-dev liblapack-dev libopenblas-dev \
-    libjpeg-dev libpng-dev libtiff-dev libavcodec-dev \
-    libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev \
-    libx264-dev libgtk-3-dev libcanberra-gtk-module \
-    libgstreamer1.0-0 gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good
-
-# Create virtual environment
-echo "🐍 Creating Python virtual environment..."
-python3 -m venv venv
-source venv/bin/activate
-
-# Install Python packages
-echo "📦 Installing Python packages..."
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# Initialize database
-echo "💾 Initializing database..."
-python init_database.py
-
-# Create systemd service
-echo "🔧 Creating systemd service..."
-sudo tee /etc/systemd/system/attendance.service << EOF
-[Unit]
-Description=Smart Attendance System
-After=network.target
-
-[Service]
-User=$USER
-WorkingDirectory=$(pwd)
-Environment="PATH=$(pwd)/venv/bin"
-ExecStart=$(pwd)/venv/bin/python app.py
-Restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Enable and start service
-echo "🚀 Starting service..."
-sudo systemctl daemon-reload
-sudo systemctl enable attendance
-sudo systemctl start attendance
-
-echo "✅ Deployment complete!"
-echo "🌐 Access the application at: http://localhost:5000"
-echo "📊 Default admin credentials: admin / admin123"
-echo ""
-echo "To check status: sudo systemctl status attendance"
-echo "To view logs: sudo journalctl -u attendance -f"
 ```
