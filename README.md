@@ -24,13 +24,13 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 - Multi-Angle Support - Recognizes faces from various orientations
 
 📊 Performance Metrics
-| Metric | Value |
-|--------|-------|
-| Recognition Accuracy | 94.2% |
-| Average Processing Time | 1.4 seconds |
-| System Throughput | 28 recognitions/minute |
-| Frame Processing | 28 FPS on Raspberry Pi 5 |
-| Database Support | 150+ students |
+|          Metric         |           Value          |
+|-------------------------|--------------------------|
+| Recognition Accuracy    |           94.2%          |
+| Average Processing Time |        1.4 seconds       |  
+| System Throughput       |  28 recognitions/minute  |
+| Frame Processing        | 28 FPS on Raspberry Pi 5 |
+| Database Support        |       150+ students      |
 
 🔒 Security Features
 - ✅ Micro-texture analysis for liveness detection
@@ -71,7 +71,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Technology Stack
+Technology Stack
 
 | Component | Technology | Version |
 |-----------|------------|---------|
@@ -86,9 +86,9 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 
 ---
 
-## 🚀 Quick Start
+🚀 Quick Start
 
-### Prerequisites
+Prerequisites
 
 - Python 3.9 or higher
 - Raspberry Pi 4/5 (or Linux/Windows system)
