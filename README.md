@@ -97,9 +97,9 @@ Prerequisites
 - Raspberry Pi 4/5 (or Linux/Windows system)
 - USB Camera (720p+ recommended)
 - Minimum 2GB RAM
-
-Installation
 ```
+### Installation
+
 #### 1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/smart-attendance-system.git
