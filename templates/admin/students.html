@@ -1,0 +1,43 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Manage Students{% endblock %}
+
+{% block content %}
+
+
+<div class="students">
+    <h1>Manage Students</h1>
+    
+    <div class="action-bar">
+        <a href="/" class="btn">Register New Student</a>
+    </div>
+    
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Stream</th>
+                <th>Angles</th>
+                <th>Last Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                    <td>{{ student[2] }}</td>
+                    <td>{{ student[3] }}</td>
+                    <td>{{ student[4] }}</td>
+                    <td>
+                        <!-- Make sure your View button/link looks like this -->
+                    <a href="{{ url_for('view_student', student_id=student[0]) }}" class="btn-sm">View</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

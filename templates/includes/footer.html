@@ -1,0 +1,56 @@
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3 class="footer-title">About System</h3>
+            <p class="footer-text">College Attendance System with facial recognition technology for accurate attendance tracking.</p>
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/your-repo" class="social-link"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+                {% if 'logged_in' in session %}
+                    <li><a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-chevron-right"></i> Dashboard</a></li>
+                    <li><a href="{{ url_for('manage_students') }}"><i class="fas fa-chevron-right"></i> Students</a></li>
+                    <li><a href="{{ url_for('manage_streams') }}"><i class="fas fa-chevron-right"></i> Streams</a></li>
+                    <li><a href="{{ url_for('view_attendance') }}"><i class="fas fa-chevron-right"></i> Attendance</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('index') }}"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="{{ url_for('admin_login') }}"><i class="fas fa-chevron-right"></i> Admin Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3 class="footer-title">Contact Info</h3>
+            <ul class="footer-contact">
+                <li><i class="fas fa-map-marker-alt"></i> Barrackpore - Barasat Rd, Sewli Telinipara, Malir Math, Bara Kanthalia, West Bengal 700121</li>
+                <li><i class="fas fa-phone"></i> +91 089105 54937</li>
+                <li><i class="fas fa-envelope"></i> attendance@svu.edu</li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3 class="footer-title">System Status</h3>
+            <div class="system-status">
+                <p><i class="fas fa-circle {% if picam2 %}status-online{% else %}status-offline{% endif %}"></i> 
+                   Camera: {% if picam2 %}Online{% else %}Offline{% endif %}</p>
+                <p><i class="fas fa-circle status-online"></i> Database: Online</p>
+                <p>Last Updated: {{ now.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="footer-copyright">
+            &copy; {{ now.year }} College Attendance System By Kundan. All Rights Reserved.
+            <span class="version">v1.0.0</span>
+        </div>
+       
+    </div>
+</footer>

@@ -1,0 +1,90 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Attendance Records{% endblock %}
+
+{% block content %}
+<div class="attendance">
+    <h1>Attendance Records</h1>
+    
+    <div class="filters">
+        <form method="GET" action="{{ url_for('view_attendance') }}">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" 
+                           value="{{ current_date }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="stream">Stream:</label>
+                    <select id="stream" name="stream">
+                        <option value="">All Streams</option>
+                        {% for stream in streams %}
+                            <option value="{{ stream[0] }}" 
+                                    {% if stream[0]|string == current_stream|string %}selected{% endif %}>
+                                {{ stream[1] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <select id="subject" name="subject">
+                        <option value="">All Subjects</option>
+                        {% for subject in subjects %}
+                            <option value="{{ subject }}" 
+                                    {% if subject == current_subject %}selected{% endif %}>
+                                {{ subject }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">Filter</button>
+                <a href="{{ url_for('export_attendance') }}?date={{ current_date }}{% if current_stream %}&stream={{ current_stream }}{% endif %}{% if current_subject %}&subject={{ current_subject }}{% endif %}" 
+                   class="btn">Export CSV</a>
+            </div>
+        </form>
+    </div>
+    
+    {% if records %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Stream</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record['student_id'] }}</td>
+                    <td>{{ record['name'] }}</td>
+                    <td>{{ record['stream_name'] }}</td>
+                    <td>{{ record['subject'] }}</td>
+                    <td class="status-{{ record['status'].lower() }}">{{ record['status'] }}</td>
+                    <td>
+                        {% if record['timestamp'] %}
+                            {% if record['timestamp'] is string %}
+                                {{ record['timestamp'] }}
+                            {% else %}
+                                {{ record['timestamp'].strftime('%Y-%m-%d %H:%M:%S') }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="no-records">
+        <p>No attendance records found for the selected filters.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

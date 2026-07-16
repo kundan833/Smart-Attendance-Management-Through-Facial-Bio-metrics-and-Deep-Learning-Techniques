@@ -1,0 +1,102 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="/admin/dashboard" class="logo-link">
+            <i class="fas fa-graduation-cap"></i>
+            <span>College Attendance</span>
+        </a>
+        <button class="navbar-toggler" id="navbarToggler">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    
+    <div class="navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/admin/dashboard" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/students" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/schedules" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/attendance" class="nav-link">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="managementDropdown">
+                    <i class="fas fa-cog"></i>
+                    <span>Management</span>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="/admin/streams" class="dropdown-item">
+                        <i class="fas fa-stream"></i> Streams
+                    </a>
+                    <a href="/admin/manage_users" class="dropdown-item">
+                        <i class="fas fa-user-shield"></i> Users
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="dropdown-item">
+                        <i class="fas fa-sliders-h"></i> Logout
+                    </a>
+                </div>
+            </li>
+        </ul>
+        
+        
+    </div>
+</nav>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle mobile navbar
+    const toggler = document.getElementById('navbarToggler');
+    const navbar = document.getElementById('navbarCollapse');
+    
+    toggler.addEventListener('click', function() {
+        navbar.classList.toggle('show');
+    });
+    
+    // Close navbar when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target) && e.target !== toggler) {
+            navbar.classList.remove('show');
+        }
+    });
+    
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown-toggle');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            const menu = this.nextElementSibling;
+            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                if (m !== menu) m.classList.remove('show');
+            });
+            menu.classList.toggle('show');
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    window.addEventListener('click', function(e) {
+        if (!e.target.matches('.dropdown-toggle')) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+});
+</script>

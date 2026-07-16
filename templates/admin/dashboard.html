@@ -1,0 +1,65 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <!-- Add only what's extra, not already in base.html -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>Dashboard</h1>
+    
+    <div class="stats-container">
+        <div class="stat-card" data-icon="users">
+            <h2><i class="fas fa-users"></i> Total Students</h2>
+            <p>{{ total_students }}</p>
+        </div>
+        
+        <div class="stat-card" data-icon="calendar-check">
+            <h2><i class="fas fa-calendar-check"></i> Today's Attendance</h2>
+            <p>{{ today_attendance }}</p>
+        </div>
+    </div>
+    
+    <div class="current-classes">
+        <h2><i class="fas fa-chalkboard-teacher"></i> Current Classes</h2>
+        {% if current_classes %}
+            <ul>
+                {% for class in current_classes %}
+                    <li>
+                        <strong>{{ class[0] }}</strong> - {{ class[1] }}<br>
+                        {{ class[2] }} to {{ class[3] }}
+                        <span class="current-time">
+                            <i class="far fa-clock"></i> Current time: {{ now.strftime('%H:%M') if now else "N/A" }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No classes currently in session 
+                <span class="current-time">
+                    <i class="far fa-clock"></i> Current time: {{ now.strftime('%H:%M') if now else "N/A" }}
+                </span>
+            </p>
+        {% endif %}
+    </div>
+    
+    <div class="quick-links">
+        <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+        <div class="action-buttons">
+            <a href="{{ url_for('manage_students') }}" class="btn">
+                <i class="fas fa-user-graduate"></i> Manage Students
+            </a>
+            <a href="{{ url_for('manage_schedules') }}" class="btn">
+                <i class="fas fa-calendar-alt"></i> Manage Schedule
+            </a>
+            <a href="{{ url_for('view_attendance') }}" class="btn">
+                <i class="fas fa-clipboard-list"></i> View Attendance
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

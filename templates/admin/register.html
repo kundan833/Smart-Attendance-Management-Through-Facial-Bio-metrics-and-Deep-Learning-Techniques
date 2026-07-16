@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration | College Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-card">
+            <div class="registration-header">
+                <h1><i class="fas fa-user-graduate"></i> Student Registration</h1>
+                <p>Please provide your details and capture facial images from multiple angles</p>
+            </div>
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="flash">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <div class="form-container">
+                <form id="registrationForm" method="POST" action="{{ url_for('submit') }}">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="student_id"><i class="fas fa-id-card"></i> College ID</label>
+                            <input type="text" id="student_id" name="student_id" required
+                                   placeholder="e.g. CSE2021001">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="name" name="name" required
+                                   placeholder="e.g. John Doe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stream"><i class="fas fa-graduation-cap"></i> Academic Stream</label>
+                            <select id="stream" name="stream" required>
+                                <option value="">Select Your Stream</option>
+                                {% for stream in streams %}
+                                    <option value="{{ stream[0] }}">{{ stream[1] }} ({{ stream[2] }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="camera-section">
+                        <h3><i class="fas fa-camera"></i> Face Capture</h3>
+                        <p class="text-muted">Please capture your face from three different angles (front, left, right)</p>
+                        
+                        <div class="camera-container">
+                            <div class="camera-feed">
+                                <img src="{{ url_for('video_feed') }}" id="videoFeed">
+                                <div class="camera-overlay">
+                                    <div class="face-guide"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="capture-controls">
+                                <button type="button" id="captureFront" class="capture-btn">
+                                    <i class="fas fa-camera"></i> Front View
+                                </button>
+                                <button type="button" id="captureLeft" class="capture-btn">
+                                    <i class="fas fa-camera"></i> Left View
+                                </button>
+                                <button type="button" id="captureRight" class="capture-btn">
+                                    <i class="fas fa-camera"></i> Right View
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-container">
+                            <div class="preview-box">
+                                <h3><i class="fas fa-user"></i> Front View</h3>
+                                <img id="previewFront" src="" alt="Front view">
+                                <div class="preview-status" id="statusFront"></div>
+                            </div>
+                            <div class="preview-box">
+                                <h3><i class="fas fa-user"></i> Left View</h3>
+                                <img id="previewLeft" src="" alt="Left view">
+                                <div class="preview-status" id="statusLeft"></div>
+                            </div>
+                            <div class="preview-box">
+                                <h3><i class="fas fa-user"></i> Right View</h3>
+                                <img id="previewRight" src="" alt="Right view">
+                                <div class="preview-status" id="statusRight"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="face_images" name="face_images">
+                    <button type="submit" class="submit-btn" id="registerBtn" disabled>
+                        <i class="fas fa-user-plus"></i> Complete Registration
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'includes/footer.html' %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const captureButtons = {
+            front: document.getElementById('captureFront'),
+            left: document.getElementById('captureLeft'),
+            right: document.getElementById('captureRight')
+        };
+        
+        const previewImages = {
+            front: document.getElementById('previewFront'),
+            left: document.getElementById('previewLeft'),
+            right: document.getElementById('previewRight')
+        };
+        
+        const statusElements = {
+            front: document.getElementById('statusFront'),
+            left: document.getElementById('statusLeft'),
+            right: document.getElementById('statusRight')
+        };
+        
+        const registerBtn = document.getElementById('registerBtn');
+        const faceImagesInput = document.getElementById('face_images');
+        
+        // State
+        const faceImages = {
+            front: null,
+            left: null,
+            right: null
+        };
+        
+        // Capture image handlers
+        Object.keys(captureButtons).forEach(angle => {
+            captureButtons[angle].addEventListener('click', async () => {
+                try {
+                    // Show loading state
+                    statusElements[angle].textContent = 'Capturing...';
+                    statusElements[angle].style.color = '#3498db';
+                    
+                    const response = await fetch('/capture_frame');
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const reader = new FileReader();
+                        
+                        reader.onload = () => {
+                            // Update preview
+                            previewImages[angle].src = reader.result;
+                            faceImages[angle] = reader.result;
+                            
+                            // Update status
+                            statusElements[angle].textContent = 'Captured ✓';
+                            statusElements[angle].style.color = '#2ecc71';
+                            
+                            // Update form state
+                            updateFormState();
+                        };
+                        
+                        reader.readAsDataURL(blob);
+                    } else {
+                        throw new Error('Failed to capture image');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    statusElements[angle].textContent = 'Error! Try again';
+                    statusElements[angle].style.color = '#e74c3c';
+                    setTimeout(() => {
+                        statusElements[angle].textContent = '';
+                    }, 2000);
+                }
+            });
+        });
+        
+        // Update form submission state
+        function updateFormState() {
+            const allCaptured = Object.values(faceImages).every(img => img !== null);
+            
+            if (allCaptured) {
+                registerBtn.disabled = false;
+                faceImagesInput.value = JSON.stringify([
+                    faceImages.front,
+                    faceImages.left,
+                    faceImages.right
+                ]);
+            } else {
+                registerBtn.disabled = true;
+            }
+        }
+        
+        // Form validation
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            const studentId = document.getElementById('student_id').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const stream = document.getElementById('stream').value;
+            
+            if (!studentId || !name || !stream) {
+                e.preventDefault();
+                alert('Please fill all required fields');
+                return false;
+            }
+            
+            if (!faceImages.front || !faceImages.left || !faceImages.right) {
+                e.preventDefault();
+                alert('Please capture all three face angles');
+                return false;
+            }
+            
+            // Show loading state
+            registerBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            registerBtn.disabled = true;
+        });
+        
+        // Auto-uppercase student ID
+        document.getElementById('student_id').addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    });
+    </script>
+
+</body>
+</html>

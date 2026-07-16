@@ -1,0 +1,370 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Student Details{% endblock %}
+
+{% block content %}
+<div class="bg-animation">
+    {% for i in range(50) %}
+    <div class="particle" style="top: {{ range(0, 100)|random }}%; left: {{ range(0, 100)|random }}%; animation-delay: {{ range(0, 15)|random }}s;"></div>
+    {% endfor %}
+</div>
+
+<div class="student-detail-container">
+    <div class="student-header">
+        <h1 class="page-title">Student <span class="highlight">Details</span></h1>
+        <div class="action-buttons">
+            <a href="/admin/students" class="btn back-btn">
+                <i class="fas fa-arrow-left"></i> All Students
+            </a>
+            <button class="btn delete-btn" onclick="confirmDelete('{{ student[0] }}')">
+                <i class="fas fa-trash-alt"></i> Delete Student
+            </button>
+        </div>
+    </div>
+
+    <div class="student-profile-card">
+        <div class="profile-header">
+            <h2>{{ student[1] }}</h2>
+            <span class="student-id">ID: {{ student[0] }}</span>
+        </div>
+        
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="detail-label">Stream</span>
+                <span class="detail-value">{{ student[2] }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Registered</span>
+                <span class="detail-value">{{ student[3] }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h3 class="section-title">
+            <i class="fas fa-id-badge"></i> 
+            <span>Registered Faces</span>
+        </h3>
+        
+        <div class="face-grid">
+            {% for face in faces %}
+            <div class="face-card">
+                <div class="face-image-container">
+                    <img src="{{ url_for('static', filename=face[1].replace('static/', '')) }}" alt="{{ face[0] }} view">
+                </div>
+                <div class="face-meta">
+                    <span class="view-angle">{{ face[0] }} view</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h3 class="section-title">
+            <i class="fas fa-history"></i> 
+            <span>Attendance History (Last 50)</span>
+        </h3>
+        
+        <div class="attendance-table-container">
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Date/Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance %}
+                    <tr>
+                        <td>{{ record[0] }}</td>
+                        <td>{{ record[1] }}</td>
+                        <td>
+                            <span class="status-badge {% if record[2] == 'Present' %}present{% else %}absent{% endif %}">
+                                {{ record[2] }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete(studentId) {
+    if (confirm('Are you sure you want to permanently delete this student and all associated data?')) {
+        // Create a form dynamically
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/admin/student/${studentId}`;
+        
+        // Add CSRF token if you're using Flask-WTF
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrf_token';
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script>
+
+<style>
+.student-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.student-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: var(--light-gray);
+    font-weight: 600;
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.back-btn {
+    background-color: var(--dark-blue);
+    color: var(--light-gray);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 240, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background-color: rgba(255, 45, 117, 0.2);
+    color: var(--accent-color);
+    border: 1px solid rgba(255, 45, 117, 0.3);
+}
+
+.delete-btn:hover {
+    background-color: rgba(255, 45, 117, 0.3);
+    transform: translateY(-2px);
+}
+
+.student-profile-card {
+    background-color: rgba(23, 42, 69, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header {
+    margin-bottom: 1.5rem;
+}
+
+.profile-header h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.student-id {
+    color: var(--light-gray);
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.detail-item {
+    background-color: rgba(10, 25, 47, 0.5);
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.detail-label {
+    display: block;
+    color: var(--light-gray);
+    opacity: 0.7;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 500;
+}
+
+.section-container {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: var(--light-gray);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.face-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.face-card {
+    background-color: rgba(23, 42, 69, 0.7);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.face-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 240, 255, 0.1);
+}
+
+.face-image-container {
+    height: 180px;
+    overflow: hidden;
+}
+
+.face-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.face-card:hover .face-image-container img {
+    transform: scale(1.05);
+}
+
+.face-meta {
+    padding: 1rem;
+    background-color: rgba(10, 25, 47, 0.5);
+}
+
+.view-angle {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
+.attendance-table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(23, 42, 69, 0.7);
+}
+
+.attendance-table th {
+    background-color: rgba(0, 240, 255, 0.1);
+    color: var(--primary-color);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+}
+
+.attendance-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.05);
+    color: var(--light-gray);
+}
+
+.attendance-table tr:last-child td {
+    border-bottom: none;
+}
+
+.attendance-table tr:hover td {
+    background-color: rgba(0, 240, 255, 0.05);
+}
+
+.status-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.present {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+
+.status-badge.absent {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+}
+
+@media (max-width: 768px) {
+    .student-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .action-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .btn {
+        justify-content: center;
+    }
+    
+    .profile-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .face-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+</style>
+{% endblock %}
