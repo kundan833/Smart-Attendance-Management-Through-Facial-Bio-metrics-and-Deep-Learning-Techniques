@@ -1,7 +1,7 @@
 # README.md
 
 ```markdown
-# Smart Attendance Management System
+Smart Attendance Management System
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)](https://flask.palletsprojects.com/)
@@ -10,17 +10,17 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-## 📋 Overview
+📋 Overview
 
 An innovative, Flask-based facial recognition attendance system leveraging cutting-edge deep learning technologies to revolutionize traditional attendance tracking methods. This edge-computing solution achieves **94.2% recognition accuracy** with an impressive **1.4 second average processing time** per individual, representing a significant advancement over conventional approaches.
 
-> **📄 [View Full Dissertation](docs/MCA%20Final.pdf)**
+> 📄 [View Full Dissertation](docs/MCA%20Final.pdf)**
 
 ---
 
-## ✨ Key Features
+✨ Key Features
 
-### 🎯 Core Capabilities
+🎯 Core Capabilities
 - **Real-time Face Recognition** - Instant identification using deep learning
 - **Automated Attendance Logging** - Seamless recording with timestamp
 - **Anti-Spoofing Protection** - 100% prevention of proxy attendance
@@ -28,7 +28,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 - **Privacy-First Design** - Local data processing, no cloud dependency
 - **Multi-Angle Support** - Recognizes faces from various orientations
 
-### 📊 Performance Metrics
+📊 Performance Metrics
 | Metric | Value |
 |--------|-------|
 | Recognition Accuracy | 94.2% |
@@ -37,7 +37,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 | Frame Processing | 28 FPS on Raspberry Pi 5 |
 | Database Support | 150+ students |
 
-### 🔒 Security Features
+🔒 Security Features
 - ✅ Micro-texture analysis for liveness detection
 - ✅ Challenge-response blink detection
 - ✅ Fourier frequency pattern analysis
