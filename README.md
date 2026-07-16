@@ -99,8 +99,8 @@ Prerequisites
 - Minimum 2GB RAM
 
 Installation
-
-1. Clone the Repository
+```
+#### 1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/smart-attendance-system.git
 cd smart-attendance-system
