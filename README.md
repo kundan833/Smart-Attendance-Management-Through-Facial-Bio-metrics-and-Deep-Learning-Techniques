@@ -1,4 +1,4 @@
-## Smart Attendance Management System
+# Smart Attendance Management System
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)](https://flask.palletsprojects.com/)
@@ -88,7 +88,7 @@ Technology Stack
 
 ---
 
-🚀 Quick Start
+### 🚀 Quick Start
 
 Prerequisites
 
