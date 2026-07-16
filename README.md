@@ -1,5 +1,5 @@
 ```markdown
-# Smart Attendance Management System
+Smart Attendance Management System
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)](https://flask.palletsprojects.com/)
@@ -17,6 +17,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 ✨ Key Features
 
 🎯 Core Capabilities
+
 - Real-time Face Recognition - Instant identification using deep learning
 - Anti-Spoofing Protection - 100% prevention of proxy attendance
 - Edge Computing - Fully functional on Raspberry Pi 4/5
@@ -24,6 +25,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 - Multi-Angle Support - Recognizes faces from various orientations
 
 📊 Performance Metrics
+
 |          Metric         |           Value          |
 |-------------------------|--------------------------|
 | Recognition Accuracy    |           94.2%          |
@@ -33,6 +35,7 @@ An innovative, Flask-based facial recognition attendance system leveraging cutti
 | Database Support        |       150+ students      |
 
 🔒 Security Features
+
 - ✅ Micro-texture analysis for liveness detection
 - ✅ Challenge-response blink detection
 - ✅ Fourier frequency pattern analysis
@@ -95,9 +98,9 @@ Prerequisites
 - USB Camera (720p+ recommended)
 - Minimum 2GB RAM
 
-### Installation
+Installation
 
-#### 1. Clone the Repository
+1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/smart-attendance-system.git
 cd smart-attendance-system
